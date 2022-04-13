@@ -3,8 +3,8 @@ package com.example.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +21,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Tira los dados y actualiza la pantalla con el resultado.
+     */
     private fun rollDice() {
+        // Crea un nuevo objeto Dice con 6 lados y tira los dados
         val dice = Dice(6)
         val diceRoll = dice.roll()
+
+        // Encuentra la ImageView en el diseño
         val resultadoTextView: TextView = findViewById(R.id.textView)
         resultadoTextView.text = diceRoll.toString()
 
@@ -32,14 +38,34 @@ class MainActivity : AppCompatActivity() {
     private fun rollDice2() {
         val dice = Dice(6)
         val diceRoll = dice.roll()
-        val resultadoTextView2: TextView = findViewById(R.id.textView2)
-        resultadoTextView2.text = diceRoll.toString()
+
+        val diceImagen: ImageView = findViewById(R.id.caraDadoUno)
+
+        /** Determine qué ID de recurso drawable
+        * usar en función de la tirada de dados
+         */
+        val drawableResourse = when (diceRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        // Actualizar ImageView con el ID de recurso drawable correcto
+        diceImagen.setImageResource(drawableResourse)
+
+        // Actualizar la descripción del contenido
+        diceImagen.contentDescription = diceRoll.toString()
+
+
     }
-}
 
-class Dice(private val numSides: Int) {
+    class Dice(private val numSides: Int) {
 
-    fun roll(): Int {
-        return (1..numSides).random()
+        fun roll(): Int {
+            return (1..numSides).random()
+        }
     }
 }
