@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
             rollDice2()
         }
 
-
     }
 
     /**
@@ -30,21 +29,11 @@ class MainActivity : AppCompatActivity() {
         val diceRoll = dice.roll()
 
         // Encuentra la ImageView en el diseño
-        val resultadoTextView: TextView = findViewById(R.id.textView)
-        resultadoTextView.text = diceRoll.toString()
-
-    }
-
-    private fun rollDice2() {
-        val dice = Dice(6)
-        val diceRoll = dice.roll()
-
-        val diceImagen: ImageView = findViewById(R.id.caraDadoUno)
-
+       val diceImage : ImageView = findViewById(R.id.imageView4)
         /** Determine qué ID de recurso drawable
-        * usar en función de la tirada de dados
+         * usar en función de la tirada de dados
          */
-        val drawableResourse = when (diceRoll) {
+        val drawableresourse = when (diceRoll){
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -54,9 +43,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Actualizar ImageView con el ID de recurso drawable correcto
-        diceImagen.setImageResource(drawableResourse)
+        diceImage.setImageResource(drawableresourse)
 
         // Actualizar la descripción del contenido
+        diceImage.contentDescription = diceRoll.toString()
+
+
+    }
+
+    private fun rollDice2() {
+        val dice = Dice(6)
+        val diceRoll = dice.roll()
+
+        val diceImagen: ImageView = findViewById(R.id.caraDadoUno)
+
+        val drawableResourse = when (diceRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        diceImagen.setImageResource(drawableResourse)
+
         diceImagen.contentDescription = diceRoll.toString()
 
 
